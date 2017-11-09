@@ -1,0 +1,45 @@
+{
+  "name": "object-storage-network",
+  "version": "0.0.1",
+  "description": "This is the Object Storage Network of Hyperledger Composer. You can create containers and store as many objects as you want to the containers.",
+  "scripts": {
+    "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/object-storage-network.bna",
+    "lint": "eslint .",
+    "postlint": "npm run licchk",
+    "licchk": "license-check",
+    "postlicchk": "npm run doc",
+    "doc": "jsdoc --pedantic --recurse -c jsdoc.json"
+  },
+  "keywords": [
+    "object-storage",
+    "composer",
+    "composer-network"
+  ],
+  "author": "Sosuke Matsui",
+  "email": "e34975@jp.ibm.com",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "composer-admin": "latest",
+    "composer-client": "latest",
+    "composer-connector-embedded": "latest",
+    "browserfs": "latest",
+    "chai": "latest",
+    "eslint": "latest",
+    "istanbul": "latest",
+    "mkdirp": "latest",
+    "mocha": "latest"
+  },
+  "license-check-config": {
+    "src": [
+      "**/*.js",
+      "!./coverage/**/*",
+      "!./node_modules/**/*",
+      "!./out/**/*",
+      "!./scripts/**/*"
+    ],
+    "path": "header.txt",
+    "blocking": true,
+    "logInfo": false,
+    "logError": true
+  }
+}

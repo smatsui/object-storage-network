@@ -1,0 +1,49 @@
+rule EverybodyCanCreateContainers {
+    description: "Allow all participants to submit transactions"
+    participant: "org.acme.objectstore.Account"
+    operation: CREATE
+    resource: "org.acme.objectstore.CreateContainer"
+    action: ALLOW
+}
+
+rule EverybodyCanCreateObjects {
+    description: "Allow all participants to submit transactions"
+    participant: "org.acme.objectstore.Account"
+    operation: CREATE
+    resource: "org.acme.objectstore.CreateObject"
+    action: ALLOW
+}
+
+rule OwnerHasFullAccessToTheirContainers {
+    description: "Allow all participants full access to their assets"
+    participant(p): "org.acme.objectstore.Account"
+    operation: ALL
+    resource(r): "org.acme.objectstore.Container"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+rule OwnerHasFullAccessToTheirObjects {
+    description: "Allow all participants full access to their assets"
+    participant(p): "org.acme.objectstore.Account"
+    operation: ALL
+    resource(r): "org.acme.objectstore.Object"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminACL {
+  description: "NetworkAdmin ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.acme.objectstore.*"
+  action: ALLOW
+}

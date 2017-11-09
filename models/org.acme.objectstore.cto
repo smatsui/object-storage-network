@@ -1,0 +1,44 @@
+/**
+ * Sample business network definition.
+ */
+namespace org.acme.objectstore
+
+participant Account identified by accountId{
+  o String accountId
+}
+
+asset Container identified by accountContainerId{
+  o String accountContainerId
+  o String containerId
+  --> Account account
+}
+
+asset Object identified by accountContainerObjectId{
+  o String accountContainerObjectId
+  o String objectId
+  o String value
+  --> Container container
+}
+
+transaction CreateAccount{
+  o String accountId
+}
+
+transaction CreateContainer{
+  --> Account account
+  o String containerId
+}
+
+transaction CreateObject{
+  --> Container container
+  o String objectId
+  o String value
+}
+
+transaction DeleteContainer{
+  o String accountContainerId
+}
+
+transaction DeleteObject{
+  o String accountContainerObjectId
+}
